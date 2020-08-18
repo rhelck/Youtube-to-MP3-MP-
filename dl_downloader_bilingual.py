@@ -9,13 +9,7 @@ root = Tk()
 
 url_list = []
 
-#v = IntVar()
-
 language = 'english'
-
-
-#radioButton1 = Radiobutton(root, variable = v, value = 0, text = 'english', command = lambda: language = 'english').pack()
-#radioButton2 = Radiobutton(root, variable = v, value = 1, text = 'english', command = lambda: language = 'chinese').pack()
 
 english_dictionary = {
     'url_msg' : 'url',
@@ -43,7 +37,7 @@ meta_dictionary = {
     'english': english_dictionary,
     'chinese':chinese_dictionary
 }
-#herein are those entries that transmit text to, and fro
+# these take user input for the MP3/MP4 files to be created
 url_entry = Entry(root, width = 50, borderwidth = 5)
 url_entry.grid(column = 0, row = 0)
 url_entry.insert(0, 'url')
@@ -59,6 +53,7 @@ url_list_entry.insert(0, 'url list')
 display_entry = Entry(root)
 display_entry.grid(column = 0, row = 3)
 
+#this function changes the language of the buttons from Chinese to English, and vice versa
 def change_language(language):
     name_entry.delete(0, END)
     name_entry.insert(0, meta_dictionary.get(language).get('name_msg'))
@@ -89,8 +84,8 @@ def clear():
     url_list_entry.delete(0, END)
     url_list.clear()
 
+#this functions creates mp3 files
 def download_mp3():
-#hereby are mp3 files created
     for url in url_list:
         if name_entry.get() == '' or 'name':
             data = {}
@@ -112,8 +107,8 @@ def download_mp3():
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
 
+#this function creates mp4 files
 def download_mp4():
-#hereby are mp4 files created
     for url in url_list:
         if name_entry.get() != '':
             name = name_entry.get()
@@ -130,8 +125,8 @@ def download_mp4():
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
 
+#this will return whether a file exists or not
 def search_file():
-#hereby the user may inquire whether a file exists, or not, within the bounds of a directory predetermined
     display_entry.delete(0, END)
     path = 'C:\\Users\\User\\Music'
     name = (name_entry.get()).lower()
@@ -169,7 +164,7 @@ def search_file():
                 else:
                     replace(display_entry, '')
 
-#how the hitherto undefined buttons are severally arrayed upon the interface
+#these are the buttons that call the various functions
 mp3_button = Button(root, text = 'mp3 button', command = download_mp3)
 mp3_button.grid(column = 0, row = 5)
 mp4_button = Button(root, text = 'mp4 button', command = download_mp4)
